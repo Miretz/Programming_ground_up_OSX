@@ -24,18 +24,16 @@ data_items:
 .globl _main
 _main:
 
-    leaq data_items(%rip), %rdi     # move 0 into the index register 
-    movq (%rdi), %rax
-                                    # load the first byte of data
-
-    movl %eax, %ebx                 # eax is the biggest number
+    leaq data_items(%rip), %rdi     # move the address of data_items into %rdi 
+    movq (%rdi), %rax               # load the first item of data
+    movl %eax, %ebx                 # %eax now contains the largest number
 
 start_loop:
     cmpl $0, %eax                   # check to see if we've hit 0
     je loop_exit
-    add $4, %rdi                    # load next value
-    movq (%rdi), %rax
-    cmpl %ebx, %eax
+    add $4, %rdi                    # increment the adress in %rdi
+    movq (%rdi), %rax               # load the next value into %rax
+    cmpl %ebx, %eax                 
     jle start_loop                  # if smaller jump to start
     movl %eax, %ebx                 # move the largest value into ebx
     jmp start_loop                  # loop
@@ -43,5 +41,5 @@ start_loop:
 loop_exit:
     # exit program
     movl $0x2000001,%eax
-    movq %rbx, %rdi                 # set the largest number as exit
+    movq %rbx, %rdi                 # set the largest number as exit status
     syscall
