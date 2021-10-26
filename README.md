@@ -3,16 +3,16 @@
 Examples from the book "Programming from the Ground Up" ported to MacOS 64 bit.
 
 
-Compiled using
+Compile using
 
 ```
-clang file.s -o file
+clang file.s -o file.out
 ```
 
-
-Check status code
+Then run and check status code
 
 ```
+./file.out
 echo $?
 ```
 
@@ -20,6 +20,6 @@ echo $?
 Debug the executable
 
 ```
-lldb ./file
+lldb ./file.out
 ```
 
