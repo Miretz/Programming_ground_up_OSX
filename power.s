@@ -21,7 +21,7 @@ _main:
     addq $16, %rsp       # move the stack pointer back
 
     popq %rbx           # the second answer is already
-                        # in %eax. We saved the first
+                        # in %rax. We saved the first
                         # answer onto the stack,
                         # so now we can just pop it
                         # out into %rbx
@@ -48,7 +48,7 @@ _main:
 #VARIABLES: 
 #           %rbx - holds the base number
 #           %rcx - holds the power
-#           -4(%rbp) - holds the current result
+#           -8(%rbp) - holds the current result
 #           %rax is used for temporary storage
 #
 
