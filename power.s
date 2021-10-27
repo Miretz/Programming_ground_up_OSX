@@ -15,7 +15,7 @@ _main:
     addq $16, %rsp       # move the stack pointer back
     pushq %rax          # save the first answer
                         # before calling the next function
-    pushq $2            # push second argument
+    pushq $0            # push second argument
     pushq $5            # push first argument
     call power          # call the function
     addq $16, %rsp       # move the stack pointer back
@@ -60,6 +60,11 @@ power:
     movq 16(%rbp),%rbx   # put first artument into %rbx
     movq 24(%rbp),%rcx   # put second argument into %rcx
     movq %rbx, -8(%rbp)  # store current result
+    cmpq $0, %rcx        # anything raised to the power of
+                         # zero is 1
+    jne power_loop_start # is not zero, run the calculation
+    movq $1, -8(%rbp)    # store 1 as result
+    jmp end_power        # jump to the end
 
 power_loop_start:
     cmpq $1, %rcx       # if the power is 1, we are done
