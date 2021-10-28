@@ -51,5 +51,8 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# testing files
+*.uppercase
+*.upper
 *.txt
 *.swp
