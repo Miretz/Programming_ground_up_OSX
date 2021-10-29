@@ -17,3 +17,10 @@ Add Year
 ```
 clang read-record.s write-record.s add-year.s -o add-year.out
 ```
+
+Read Ages - prints Name and Age
+
+```
+clang read-record.s read-ages.s -o read-ages.out
+```
+
