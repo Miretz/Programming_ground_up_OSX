@@ -46,7 +46,7 @@
 #         into the output file. This should
 #         never exceed 16,000 for various
 #         reasons.
-.equ BUFFER_SIZE, 16000
+.equ BUFFER_SIZE, 500
 .lcomm BUFFER_DATA, BUFFER_SIZE
 
 .section __TEXT,__text
@@ -108,7 +108,7 @@ continue_read_loop:
     pushq %rax             # size of the buffer
     call convert_to_upper  # call the conversion function
     popq %rax              # get the size back
-    addl $4, %esp          # restore %esp
+    addq $8, %rsp          # restore %esp
 
     movq %rax, %rdx        # copy size for writing
 
