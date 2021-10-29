@@ -11,8 +11,8 @@
 
 # STACK LOCAL VARIABLES
 
-.equ ST_READ_BUFFER, 8
-.equ ST_FILEDES, 12
+.equ ST_READ_BUFFER, 16
+.equ ST_FILEDES, 24
 
 .section __TEXT,__text
 
