@@ -56,3 +56,4 @@ dkms.conf
 *.upper
 *.txt
 *.swp
+*.dat
