@@ -12,3 +12,8 @@ Read Records
 clang read-record.s count-chars.s write-newline.s read-records.s -o read-records.out
 ```
 
+Add Year
+
+```
+clang read-record.s write-record.s add-year.s -o add-year.out
+```

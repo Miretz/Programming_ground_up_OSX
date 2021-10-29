@@ -4,17 +4,17 @@
 .section __DATA,__data
 
 record1:
-    .asciz "Fredrick"
+    .ascii "Fredrick\0"
     .rept 31 # Padding
     .byte 0
     .endr
 
-    .asciz "Bartlett"
+    .ascii "Bartlett\0"
     .rept 31
     .byte 0
     .endr
 
-    .asciz "4242 S Prairie\nTulsa, OK 55555"
+    .ascii "4242 S Prairie\nTulsa, OK 55555\0"
     .rept 209
     .byte 0
     .endr
@@ -22,17 +22,17 @@ record1:
     .long 45
 
 record2:
-    .asciz "Marilyn"
+    .ascii "Marilyn\0"
     .rept 32
     .byte 0
     .endr
 
-    .asciz "Taylor"
+    .ascii "Taylor\0"
     .rept 33
     .byte 0
     .endr
 
-    .asciz "2224 S Johannan St\nChicago, IL 12345"
+    .ascii "2224 S Johannan St\nChicago, IL 12345\0"
     .rept 203
     .byte 0
     .endr
@@ -40,17 +40,17 @@ record2:
     .long 29
 
 record3:
-    .asciz "Derrick"
+    .ascii "Derrick\0"
     .rept 32
     .byte 0
     .endr
 
-    .asciz "McIntire"
+    .ascii "McIntire\0"
     .rept 31
     .byte 0
     .endr
 
-    .asciz "500 W Oakland\nSan Diego, CA 54321"
+    .ascii "500 W Oakland\nSan Diego, CA 54321\0"
     .rept 206
     .byte 0
     .endr
