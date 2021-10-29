@@ -13,8 +13,6 @@
 
 .section __DATA,__data
 
-##### CONSTANTS #####
-
 # system call numbers
 .equ SYS_OPEN, 0x2000005
 .equ SYS_WRITE, 0x2000004
@@ -54,9 +52,9 @@
 .section __TEXT,__text
 
 # stack positions
-.equ ST_SIZE_RESERVE, 16
-.equ ST_FD_IN, -8
-.equ ST_FD_OUT, -16
+.equ ST_SIZE_RESERVE, 16  # size to reserve
+.equ ST_FD_IN, -8    # input file descriptor
+.equ ST_FD_OUT, -16  # output file descriptor
 .equ ST_ARGC, 0      # number of arguments
 .equ ST_ARGV_0, 0    # name of the program
 .equ ST_ARGV_1, 8    # input file name
@@ -94,7 +92,7 @@ store_fd_out:
 
 read_loop_begin:
     movq $SYS_READ, %rax            # read syscall
-    movq ST_FD_IN(%r8), %rdi       # load file desc
+    movq ST_FD_IN(%r8), %rdi        # load file desc
     leaq BUFFER_DATA(%rip), %rsi    # location to read
     movq $BUFFER_SIZE, %rdx         # size to read
     syscall                         # size returned in
@@ -106,17 +104,17 @@ read_loop_begin:
 
 continue_read_loop:
     leaq BUFFER_DATA(%rip), %rdi # get buffer address
-    pushq %rdi           # location of the buffer
-    pushq %rax           # size of the buffer
-    call convert_to_upper
-    popq %rax            # get the size back
-    addl $4, %esp        # restore %esp
+    pushq %rdi             # location of the buffer
+    pushq %rax             # size of the buffer
+    call convert_to_upper  # call the conversion function
+    popq %rax              # get the size back
+    addl $4, %esp          # restore %esp
 
-    movq %rax, %rdx      # copy size for writing
+    movq %rax, %rdx        # copy size for writing
 
     movq $SYS_WRITE, %rax  # write to the out file
-    movq ST_FD_OUT(%r8), %rdi
-    leaq BUFFER_DATA(%rip), %rsi
+    movq ST_FD_OUT(%r8), %rdi  # out file descriptor
+    leaq BUFFER_DATA(%rip), %rsi # out buffer
     syscall
     
     jmp read_loop_begin  # continue the loop
@@ -152,14 +150,12 @@ end_loop:
 #           buffer with the upper-casified version.
 #
 #VARIABLES:
-#           %eax - beginning of buffer
-#           %ebx - length of buffer
-#           %edi - current buffer offset
+#           %rax - beginning of buffer
+#           %rbx - length of buffer
+#           %rdi - current buffer offset
 #           %cl - current byte being examined
 #                 (first part of %ecx)
 #
-
-### CONSTANTS ###
 
 # the lower boundary of our search
 .equ LOWERCASE_A, 'a'
@@ -172,38 +168,30 @@ end_loop:
 
 ### STACK STUFF ###
 .equ ST_BUFFER_LEN, 16   # length of the buffer
-.equ ST_BUFFER, 24      # the buffer
+.equ ST_BUFFER, 24       # the buffer
 
 convert_to_upper:
-    pushq %rbp
+    pushq %rbp           # standard function stuff
     movq  %rsp, %rbp
 
-    ### SET UP VARIABLES ###
-    movq ST_BUFFER(%rbp), %rax
-    movq ST_BUFFER_LEN(%rbp), %rbx
-    movq $0, %rdi
+    movq ST_BUFFER(%rbp), %rax  # character buffer
+    movq ST_BUFFER_LEN(%rbp), %rbx  # length
+    movq $0, %rdi                   # offset
 
-    # when a buffer with zero length is given
-    # exit the loop
-    cmpq $0, %rbx
-    je end_convert_loop
+    cmpq $0, %rbx        # if the lenght is zero
+    je end_convert_loop  # exit the loop
 
 convert_loop:
-    # get the current byte
-    movb (%rax, %rdi, 1), %cl
+    movb (%rax, %rdi, 1), %cl  # current byte
 
-    # go to the next byte unless it is between
-    # 'a' and 'z'
-    cmpb $LOWERCASE_A, %cl
-    jl next_byte
-    cmpb $LOWERCASE_Z, %cl
-    jg next_byte
+    cmpb $LOWERCASE_A, %cl # check if the char
+    jl next_byte           # is between a - z
+    cmpb $LOWERCASE_Z, %cl # if yes, go to the
+    jg next_byte           # next byte
 
-    # othwerise convert the byte to uppercase
-    addb $UPPER_CONVERSION, %cl
-
-    # store it back
-    movb %cl, (%rax, %rdi, 1)
+    addb $UPPER_CONVERSION, %cl # convert byte
+                                # to uppercase
+    movb %cl, (%rax, %rdi, 1)   # store the value
 
 next_byte:
     incq %rdi       # next byte
@@ -216,3 +204,4 @@ end_convert_loop:
     movq %rbp, %rsp
     popq %rbp
     ret
+    
