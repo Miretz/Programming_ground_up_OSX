@@ -3,8 +3,8 @@
 
 .section __DATA,__data
 
-file_name: .asciz "test.dat"
-format: .asciz "Name: %s, Age: %d.\n"
+file_name: .asciz "testout.dat"
+format: .asciz "Name: %s, Age: %d, works as an %s.\n"
 
 .section __BSS,__bss
 .lcomm record_buffer, RECORD_SIZE
@@ -39,15 +39,24 @@ record_read_loop:
     jne  finished_reading
 
     # otherwise, print the first name and age
+    # parameter name
     leaq record_buffer(%rip), %rsi
     addq $RECORD_FIRSTNAME, %rsi
     
+    # parameter age
     leaq record_buffer(%rip), %rdx
     addq $RECORD_AGE, %rdx
     movq (%rdx), %rdx
+        
+    # parameter position
+    leaq record_buffer(%rip), %rcx
+    addq $RECORD_POSITION, %rcx
     
+    # string format
     leaq format(%rip), %rdi
-    xor  %rax, %rax
+
+    # call printf
+    movq $1, %rax
     callq _printf
 
     jmp record_read_loop

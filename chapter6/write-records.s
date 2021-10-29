@@ -21,6 +21,11 @@ record1:
 
     .long 45
 
+    .ascii "Manager\0"
+    .rept 32
+    .byte 0
+    .endr
+
 record2:
     .ascii "Marilyn\0"
     .rept 32
@@ -39,6 +44,11 @@ record2:
 
     .long 29
 
+    .ascii "Engineer\0"
+    .rept 31
+    .byte 0
+    .endr
+
 record3:
     .ascii "Derrick\0"
     .rept 32
@@ -56,6 +66,12 @@ record3:
     .endr
     
     .long 36
+
+    .ascii "Accountant\0"
+    .rept 27
+    .byte 0
+    .endr
+
 
 .section __TEXT,__text
 

@@ -56,7 +56,7 @@ loop_begin:
     # increment the age
     leaq record_buffer(%rip), %rdi
     addq $RECORD_AGE, %rdi
-    incq %rdi
+    incq (%rdi)
     
     # write the record out
     pushq ST_OUTPUT_DESC(%rbp)
