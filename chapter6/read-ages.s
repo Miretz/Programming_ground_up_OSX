@@ -3,7 +3,6 @@
 
 .section __DATA,__data
 
-file_name: .asciz "testout.dat"
 format: .asciz "Name: %s, Age: %d, works as an %s.\n"
 
 .section __BSS,__bss
@@ -11,15 +10,21 @@ format: .asciz "Name: %s, Age: %d, works as an %s.\n"
 
 .section __TEXT,__text
 
+.equ ST_ARGV_1, 8    # input file name
+
 .globl _main
 _main:
     .equ ST_INPUT_DESC, -8
+
+    dec %rdi         # check number of arguments
+    cmpq $1, %rdi    # we need exaclty 1 argument
+    jne error        # wrong number of args
 
     movq %rsp, %rbp
     subq $8, %rsp
 
     movq $SYS_OPEN, %rax       # open the file
-    leaq file_name(%rip), %rdi # read filename
+    movq ST_ARGV_1(%rsi), %rdi # read filename
     movq $0x00000000, %rsi     # O_RDONLY
     movq $0666, %rdx           # mode
     syscall
@@ -63,6 +68,10 @@ record_read_loop:
 
 finished_reading:
     movq $SYS_EXIT, %rax     # exit program
-    movq $0, %rbx
+    movl $0, %edi
     syscall
 
+error:
+    movq $SYS_EXIT, %rax
+    movl $1, %edi
+    syscall

@@ -18,10 +18,11 @@ Add Year
 clang read-record.s write-record.s add-year.s -o add-year.out
 ```
 
-Read Ages - prints Name and Age
+Custom: Read Ages - prints Name and Age
 
 ```
 clang read-record.s read-ages.s -o read-ages.out
+./read-ages.out <filename>
 ```
 
 Use the concepts: Write a record 30 times using a loop
@@ -47,4 +48,6 @@ Going Further: use command-line arguments to specify the filesnames
 ```
 clang write-record.s write-records-to-file.s -o write-records-to-file.out
 clang read-record.s count-chars.s write-newline.s read-records-from-file.s -o read-records-from-file.out
+./write-records-to-file.out <filename>
+./read-records-from-file.out <filename>
 ```
