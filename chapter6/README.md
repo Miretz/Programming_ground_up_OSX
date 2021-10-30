@@ -30,3 +30,21 @@ Use the concepts: Write a record 30 times using a loop
 clang write-thirty-times.s write-record.s -o write-thirty-times.out
 ```
 
+Use the concepts: Largest and smallest age
+
+```
+clang read-record.s find-largest-age.s -o find-largest-age.out
+./find-largest-age.out
+echo ?$
+
+clang read-record.s find-smallest-age.s -o find-smallest-age.out
+./find-smallest-age.out
+echo ?$
+```
+
+Going Further: use command-line arguments to specify the filesnames
+
+```
+clang write-record.s write-records-to-file.s -o write-records-to-file.out
+clang read-record.s count-chars.s write-newline.s read-records-from-file.s -o read-records-from-file.out
+```
