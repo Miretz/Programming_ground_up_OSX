@@ -24,3 +24,9 @@ Read Ages - prints Name and Age
 clang read-record.s read-ages.s -o read-ages.out
 ```
 
+Use the concepts: Write a record 30 times using a loop
+
+```
+clang write-thirty-times.s write-record.s -o write-thirty-times.out
+```
+
