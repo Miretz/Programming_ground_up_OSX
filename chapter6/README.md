@@ -43,7 +43,7 @@ clang read-record.s find-smallest-age.s -o find-smallest-age.out
 echo ?$
 ```
 
-Going Further: use command-line arguments to specify the filesnames
+Going Further: Use command-line arguments to specify the filesnames
 
 ```
 clang write-record.s write-records-to-file.s -o write-records-to-file.out
@@ -51,3 +51,15 @@ clang read-record.s count-chars.s write-newline.s read-records-from-file.s -o re
 ./write-records-to-file.out <filename>
 ./read-records-from-file.out <filename>
 ```
+
+Going Further: Rewrite the add-year to write back to the same file
+
+```
+clang read-record.s write-record.s add-year-overwrite.s -o add-year-overwrite.out
+```
+
+
+
+
+
+
