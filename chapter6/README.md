@@ -64,4 +64,11 @@ Going Further: Add record
 clang write-record.s add-record.s -o add-record.out
 ```
 
+Going Further: Search records
+
+```
+clang read-record.s count-chars.s write-newline.s compare-strings.s read-records-search.s -o read-records-search.out
+./read-records-search <search string>
+```
+
 
