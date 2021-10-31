@@ -58,8 +58,10 @@ Going Further: Rewrite the add-year to write back to the same file
 clang read-record.s write-record.s add-year-overwrite.s -o add-year-overwrite.out
 ```
 
+Going Further: Add record
 
-
-
+```
+clang write-record.s add-record.s -o add-record.out
+```
 
 
