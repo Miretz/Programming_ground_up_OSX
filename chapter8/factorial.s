@@ -18,17 +18,15 @@ _main:
     jne set_default  # wrong number of args, 
                      # use default value
 
-    # align the stack - needed in 64 bit asm
-    and $-16, %rsp
-
     movq ST_ARGV_1(%rsi), %rdi # read the argument
     
-    # convert string argument to integer
-    callq _atoi
-    addq $8, %rsp
+    # convert string argument to integer using atoi
+    and $-16, %rsp   # stack alignment
+    callq _atoi      # call atoi()
+    addq $8, %rsp    # stack align back
 
-    movq %rax, %rbx
-    jmp continue_factorial     # continue factorial
+    movq %rax, %rbx  # put the result to %rbx
+    jmp continue_factorial # continue factorial
 
 set_default:
     movq $4, %rbx   # set a default value
