@@ -6,7 +6,7 @@
 .equ SYS_READ,  0x2000003
 .equ SYS_CLOSE, 0x2000006
 .equ SYS_EXIT,  0x2000001
-.equ SYS_BRK,   0x2000045
+.equ SYS_BRK,   0x2000069
 
 # Standard File Descriptors
 .equ STDIN, 0
